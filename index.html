@@ -1,19 +1,216 @@
 <!DOCTYPE html>
-<html>
+<html lang="ru">
 <head>
-    <link href="https://fonts.googleapis.com/css?family=Inter&display=swap" rel="stylesheet"/>
-    <link href="./css/main.css" rel="stylesheet"/>
-    <title>Document</title></head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Основы парсинга данных</title>
+    <style>
+        :root {
+            --primary: #4361ee;
+            --secondary: #3f37c9;
+            --accent: #4895ef;
+            --light: #f8f9fa;
+            --dark: #212529;
+            --gray: #6c757d;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: #f5f7ff;
+            color: var(--dark);
+            line-height: 1.6;
+            padding: 0;
+            margin: 0;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 3rem;
+            padding: 2rem 0;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .subtitle {
+            font-size: 1.2rem;
+            opacity: 0.9;
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2rem;
+            margin-bottom: 3rem;
+        }
+
+        .card {
+            background: white;
+            border-radius: 10px;
+            padding: 2rem;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        .card h2 {
+            color: var(--primary);
+            margin-bottom: 1rem;
+            font-size: 1.5rem;
+            border-bottom: 2px solid var(--accent);
+            padding-bottom: 0.5rem;
+        }
+
+        .card p {
+            color: var(--gray);
+            margin-bottom: 1rem;
+        }
+
+        .card ul {
+            padding-left: 1.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .card li {
+            margin-bottom: 0.5rem;
+        }
+
+        .highlight {
+            background-color: #f0f7ff;
+            padding: 0.2rem 0.4rem;
+            border-radius: 4px;
+            font-family: monospace;
+            color: var(--secondary);
+        }
+
+        footer {
+            text-align: center;
+            padding: 2rem;
+            color: var(--gray);
+            font-size: 0.9rem;
+        }
+
+        @media (max-width: 768px) {
+            .grid {
+                grid-template-columns: 1fr;
+            }
+
+            h1 {
+                font-size: 2rem;
+            }
+        }
+    </style>
+</head>
 <body>
-<div class="v6_2">
-    <div class="v6_7"></div>
-    <div class="v7_512"></div>
-    <span class="v6_5">Тестовый сайт</span>
-    <div class="v6_28"></div>
-    <div class="v6_29"></div>
-    <div class="v7_511"></div>
-    <div class="v7_513"></div>
-    <div class="v7_514"></div>
+<div class="container">
+    <header>
+        <h1>Основы парсинга данных</h1>
+        <p class="subtitle">Полное руководство по извлечению и обработке веб-данных</p>
+    </header>
+
+    <div class="grid">
+        <div class="card">
+            <h2>1. Что такое парсинг?</h2>
+            <p>Парсинг — это процесс автоматического сбора и обработки данных из различных источников, чаще всего с веб-страниц.</p>
+            <ul>
+                <li>Извлечение структурированных данных из неструктурированных источников</li>
+                <li>Автоматизация сбора информации</li>
+                <li>Преобразование данных в удобный формат (JSON, CSV, базы данных)</li>
+            </ul>
+            <p>Парсинг широко используется для анализа конкурентов, мониторинга цен, агрегации контента и многого другого.</p>
+        </div>
+
+        <div class="card">
+            <h2>2. Основные методы парсинга</h2>
+            <p>Существует несколько основных подходов к парсингу веб-страниц:</p>
+            <ul>
+                <li><strong>HTML-парсинг</strong> — анализ структуры HTML-документа</li>
+                <li><strong>API-парсинг</strong> — работа с официальными интерфейсами сайтов</li>
+                <li><strong>Рендеринг JavaScript</strong> — для динамически загружаемого контента</li>
+                <li><strong>Регулярные выражения</strong> — для простых задач извлечения данных</li>
+            </ul>
+            <p>Выбор метода зависит от сложности сайта и требуемых данных.</p>
+        </div>
+
+        <div class="card">
+            <h2>3. Популярные инструменты</h2>
+            <p>Для парсинга используются различные библиотеки и фреймворки:</p>
+            <ul>
+                <li><span class="highlight">BeautifulSoup</span> (Python) — простой парсинг HTML/XML</li>
+                <li><span class="highlight">Scrapy</span> (Python) — мощный фреймворк для сложных проектов</li>
+                <li><span class="highlight">Cheerio</span> (Node.js) — аналог jQuery для серверного парсинга</li>
+                <li><span class="highlight">Puppeteer</span> (Node.js) — управление браузером Chrome</li>
+                <li><span class="highlight">Selenium</span> — автоматизация браузеров для сложных случаев</li>
+            </ul>
+            <p>Для хранения данных часто используют SQLite, PostgreSQL или MongoDB.</p>
+        </div>
+
+        <div class="card">
+            <h2>4. Основные этапы парсинга</h2>
+            <ol>
+                <li>Анализ структуры целевого сайта</li>
+                <li>Отправка HTTP-запросов (GET/POST)</li>
+                <li>Загрузка и обработка HTML-контента</li>
+                <li>Извлечение нужных данных (XPath, CSS-селекторы)</li>
+                <li>Очистка и нормализация данных</li>
+                <li>Сохранение в нужном формате</li>
+            </ol>
+            <p>Важно учитывать возможность изменения структуры сайта и обрабатывать ошибки.</p>
+        </div>
+
+        <div class="card">
+            <h2>5. Проблемы и ограничения</h2>
+            <p>При парсинге можно столкнуться с различными сложностями:</p>
+            <ul>
+                <li>Динамическая загрузка контента через JavaScript</li>
+                <li>Защита от парсинга (капчи, ограничение запросов)</li>
+                <li>Изменение структуры сайта</li>
+                <li>Юридические ограничения (соблюдайте robots.txt)</li>
+                <li>Этические вопросы использования данных</li>
+            </ul>
+            <p>Всегда проверяйте <span class="highlight">robots.txt</span> перед началом парсинга.</p>
+        </div>
+
+        <div class="card">
+            <h2>6. Лучшие практики</h2>
+            <p>Для эффективного и безопасного парсинга:</p>
+            <ul>
+                <li>Используйте задержки между запросами</li>
+                <li>Кэшируйте загруженные страницы</li>
+                <li>Работайте через прокси при массовом парсинге</li>
+                <li>Обрабатывайте все возможные ошибки</li>
+                <li>Соблюдайте условия использования сайта</li>
+                <li>Логируйте процесс для отладки</li>
+            </ul>
+            <p>Хороший парсер должен быть устойчивым к изменениям и не создавать нагрузку на целевой сайт.</p>
+        </div>
+    </div>
+
+    <footer>
+        <p>© 2023 Основы парсинга данных | Информация предоставлена в образовательных целях</p>
+    </footer>
 </div>
 </body>
 </html>
